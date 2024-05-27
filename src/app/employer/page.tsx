@@ -1,6 +1,9 @@
 import Link from "next/link";
+import {getEmployerList} from "@/lib/action"
+import {formDate} from "@/lib/utils"
 
-export default function Employer(){
+const Employer = async({query}:{query: string;})=>{
+  const employers = await getEmployerList(query)
     return (
         <div className="w-screen py-20 flex justify-center flex-col items-center bg-white text-black ">
             <div className="flex items-center justify-between gap-1 mb-5">
@@ -21,22 +24,30 @@ export default function Employer(){
                 <table className="table table-zebra">
     <thead>
       <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
+        <th className="py-3 px-6 text-black">#</th>
+        <th className="py-3 px-6 text-black">Name</th>
+        <th className="py-3 px-6 text-black">Job</th>
+        <th className="py-3 px-6 text-black">Phone Number</th>
+        <th className="py-3 px-6 text-black">Created At</th>
+        <th className="py-3 px-6 text-black">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+      {employers.map((rs, index) => (
+        <tr key={rs.id} className="bg-white border-b">
+        <th className="py-3 px-6">{index + 1}</th>
+        <td className="py-3 px-6">{rs.name}</td>
+        <td className="py-3 px-6">{rs.email}</td>
+        <td className="py-3 px-6">{rs.phone}</td>
+        <td className="py-3 px-6">{formDate(rs.createdAt.toString())}</td>
+        <td className="flex justify-center gap-1 py-3">Edit | Delete</td>
       </tr>
+      ))}
     </tbody>
   </table>
             </div>
         </div>
     )
 }
+
+export default Employer
