@@ -1,5 +1,6 @@
 "use server"
 
+import {prisma} from "./prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -22,7 +23,13 @@ export const saveEmployer = async (prevSate: any, formData: FormData) =>{
     }
 
     try {
-        console.log("Sucess!")
+        await prisma.employer.create({
+            data: {
+                name: validateFields.data.name,
+                email: validateFields.data.email,
+                phone: validateFields.data.phone
+            }
+        })
     } catch(error) {
 
         return {message: "Failed to create new employer"};
