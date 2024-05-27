@@ -40,7 +40,14 @@ const Employer = async({query}:{query: string;})=>{
         <td className="py-3 px-6">{rs.email}</td>
         <td className="py-3 px-6">{rs.phone}</td>
         <td className="py-3 px-6">{formDate(rs.createdAt.toString())}</td>
-        <td className="flex justify-center gap-1 py-3">Edit | Delete</td>
+        <td className="flex justify-center gap-1 py-3">
+          <Link
+           href={`/employer/edit/${rs.id}`}
+           className="btn btn-info"
+          >
+            Edit 
+          </Link>
+         | Delete</td>
       </tr>
       ))}
     </tbody>
