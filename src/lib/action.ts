@@ -102,3 +102,14 @@ export const updateEmployer = async (
     revalidatePath("/employer")
     redirect("/employer")
 }
+
+export const deleteEmployer = async (id: string) => {
+    try {
+        await prisma.employer.delete({
+            where: {id}
+        })
+    } catch (error) {
+        throw new Error("Failed to delet employer by Id") 
+    }
+    revalidatePath("/employer")
+}

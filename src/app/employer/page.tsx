@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {getEmployerList} from "@/lib/action"
 import {formDate} from "@/lib/utils"
+import { DeleteButton } from "@/components/delete";
 
 const Employer = async({query}:{query: string;})=>{
   const employers = await getEmployerList(query)
@@ -47,7 +48,7 @@ const Employer = async({query}:{query: string;})=>{
           >
             Edit 
           </Link>
-         | Delete</td>
+         <DeleteButton id={rs.id}/></td>
       </tr>
       ))}
     </tbody>
